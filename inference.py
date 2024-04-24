@@ -19,6 +19,7 @@ from torchvision.utils import save_image
 import model
 from imgproc import preprocess_one_image
 from utils import load_pretrained_state_dict
+from util.file_io import get_file_path_list
 
 
 def main(args):
@@ -27,24 +28,28 @@ def main(args):
     g_model = g_model.to(device)
 
     # Load image
-    image = preprocess_one_image(args.inputs_path, True, args.half, device)
+    img_path_list = get_file_path_list(args.inputs_path)
+
 
     # Load model weights
     g_model = load_pretrained_state_dict(g_model, False, args.model_weights_path)
     g_model.eval()
 
-    with torch.no_grad():
-        gen_image = g_model(image)
-        save_image(gen_image.detach(), args.output_path, normalize=True)
-        print(f"Gen image save to `{args.output_path}`")
+    for i in range(len(img_path_list)):
+        image = preprocess_one_image(img_path_list[i], True, args.half, device)
+        with torch.no_grad():
+            gen_image = g_model(image)
+            frame=torch.cat([image,gen_image.detach()],3)
+            save_image(frame, args.output_path, normalize=True)
+            print(f"Gen image save to `{args.output_path}`")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--inputs_path", type=str, default="./figure/apple.jpg",
-                        help="Input image path. Default: ``./figure/apple.jpg``")
-    parser.add_argument("--output_path", type=str, default="./figure/fake_orange.jpg",
-                        help="Output image path. Default: ``./figure/fake_orange.jpg``")
+    parser.add_argument("--inputs_path", type=str, default="./figure/",
+                        help="Input image path. Default: ``./figure/``")
+    parser.add_argument("--output_path", type=str, default="./figure/g",
+                        help="Output image path. Default: ``./figure/``")
     parser.add_argument("--model_arch_name", type=str, default="cyclenet",
                         help="Generator arch model name.  Default: ``cyclenet``")
     parser.add_argument("--model_weights_path", type=str,
