@@ -23,6 +23,8 @@ from torch import Tensor
 from torch.utils.data import Dataset, DataLoader
 
 from imgproc import image_to_tensor
+from typing import Dict
+
 
 __all__ = [
     "ImageDataset",
@@ -46,7 +48,7 @@ class ImageDataset(Dataset):
         self.unpaired = unpaired
         self.resized_image_size = resized_image_size
 
-    def __getitem__(self, batch_index: int) -> [dict[str, Tensor], dict[str, Tensor]]:
+    def __getitem__(self, batch_index: int) -> [Dict[str, Tensor], Dict[str, Tensor]]:
         # Read a batch of image data
         src_image = cv2.imread(self.src_image_file_names[batch_index])
         if self.unpaired:
