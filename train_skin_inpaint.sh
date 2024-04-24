@@ -1,0 +1,1 @@
+python train.py --config_path ./configs/SKIN_INPAINT.yaml
