@@ -48,7 +48,7 @@ if __name__ == "__main__":
     parser.add_argument("--model_arch_name", type=str, default="cyclenet",
                         help="Generator arch model name.  Default: ``cyclenet``")
     parser.add_argument("--model_weights_path", type=str,
-                        default="./results/pretrained_models/CycleGAN-apple2orange.pth.tar",
+                        default="./results/CycleGAN-apple2orange/CycleGAN-apple2orange.pth.tar",
                         help="Generator model weights path.  Default: ``./results/pretrained_models/CycleGAN-apple2orange.pth.tar``")
     parser.add_argument("--half", action="store_true", default=False,
                         help="Use half precision. Default: ``False``")
