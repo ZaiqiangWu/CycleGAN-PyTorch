@@ -36,6 +36,7 @@ class ImageDatasetC6(ImageDataset):
     def __getitem__(self, batch_index: int) -> [Dict[str, Tensor], Dict[str, Tensor]]:
         # Read a batch of image data
         src_skin_image = cv2.imread(self.src_skin_path_list[batch_index])
+        print(self.src_skin_path_list[batch_index])
         src_dp_path = os.path.join(self.src_dir, os.path.basename(self.src_skin_path_list[batch_index]).split('_')[0]+'_dp.jpg')
         src_dp_image = cv2.imread(src_dp_path)
         if self.unpaired:
