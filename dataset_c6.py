@@ -39,7 +39,7 @@ class ImageDatasetC6(ImageDataset):
         src_dp_path = os.path.join(self.src_dir, os.path.basename(self.src_skin_path_list[batch_index]).split('_')[0]+'_dp.jpg')
         src_dp_image = cv2.imread(src_dp_path)
         if self.unpaired:
-            dst_id=random.randint(0, len(self.src_image_file_names) - 1)
+            dst_id=random.randint(0, len(self.src_skin_path_list) - 1)
 
         else:
             dst_id=batch_index
