@@ -48,7 +48,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--inputs_path", type=str, default="./data/skin_inpaint_cyclegan/testA",
+    parser.add_argument("--inputs_path", type=str, default="./data/skin_inpaint_cyclegan/testB",
                         help="Input image path. Default: ``./figure/``")
     parser.add_argument("--output_path", type=str, default="./figure/",
                         help="Output image path. Default: ``./figure/``")
