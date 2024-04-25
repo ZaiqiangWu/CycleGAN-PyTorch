@@ -20,6 +20,7 @@ import model
 from imgproc import preprocess_one_image
 from utils import load_pretrained_state_dict
 from util.file_io import get_file_path_list
+import os
 
 
 def main(args):
@@ -40,24 +41,25 @@ def main(args):
         with torch.no_grad():
             gen_image = g_model(image)
             frame=torch.cat([image,gen_image.detach()],3)
-            save_image(frame, args.output_path, normalize=True)
-            print(f"Gen image save to `{args.output_path}`")
+            file_name=str(i).zfill(4)+'.jpg'
+            save_image(frame, os.path.join(args.output_path,file_name), normalize=True)
+            print(i)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--inputs_path", type=str, default="./figure/",
+    parser.add_argument("--inputs_path", type=str, default="./data/skin_inpaint_cyclegan/testB",
                         help="Input image path. Default: ``./figure/``")
-    parser.add_argument("--output_path", type=str, default="./figure/g",
+    parser.add_argument("--output_path", type=str, default="./figure/",
                         help="Output image path. Default: ``./figure/``")
     parser.add_argument("--model_arch_name", type=str, default="cyclenet",
                         help="Generator arch model name.  Default: ``cyclenet``")
     parser.add_argument("--model_weights_path", type=str,
-                        default="./results/CycleGAN-apple2orange/g_A_best.pth.tar",
+                        default="./results/CycleGAN-skin_inpaint/g_A_best.pth.tar",
                         help="Generator model weights path.  Default: ``./results/pretrained_models/CycleGAN-apple2orange.pth.tar``")
     parser.add_argument("--half", action="store_true", default=False,
                         help="Use half precision. Default: ``False``")
-    parser.add_argument("--device", type=str, default="cpu", choices=["cpu", 'cuda:0'],
+    parser.add_argument("--device", type=str, default="cuda:0", choices=["cpu", 'cuda:0'],
                         help="Device. Default: ``cpu``")
     args = parser.parse_args()
 
