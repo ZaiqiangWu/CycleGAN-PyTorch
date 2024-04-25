@@ -30,7 +30,7 @@ class ImageDatasetC6(ImageDataset):
         img_list=[]
         for item in file_list:
             if item.endswith('_skin.jpg'):
-                img_list.append(os.path.join(path,item))
+                img_list.append(item)
         return img_list
 
     def __getitem__(self, batch_index: int) -> [Dict[str, Tensor], Dict[str, Tensor]]:
