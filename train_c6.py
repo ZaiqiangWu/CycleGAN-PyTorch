@@ -423,7 +423,7 @@ def train(
                                                        real_image_B,
                                                        config["TRAIN"]["DATASET"]["IMAGE_SIZE"])
         real_image_A, real_image_B = random_rotate_torch(real_image_A, real_image_B, [0, 10, 20, 340, 350])
-        real_image_A, real_image_B = random_vertically_flip_torch(real_image_A, real_image_B)
+        #real_image_A, real_image_B = random_vertically_flip_torch(real_image_A, real_image_B) #up side down
         #real_image_A, real_image_B = random_horizontally_flip_torch(real_image_A, real_image_B)
 
         ##############################################
