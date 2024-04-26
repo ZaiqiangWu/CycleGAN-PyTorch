@@ -572,7 +572,6 @@ def train(
 
         # Save training image
         if batch_index == batches:
-            print(real_image_A.shape)
             save_image(tensor2img(real_image_A),
                        f"./samples/{config['EXP_NAME']}/A/real_image_A_epoch_{epoch:04d}.jpg",
                        normalize=True)
