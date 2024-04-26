@@ -573,10 +573,10 @@ def train(
         # Save training image
         if batch_index == batches:
             print(real_image_A.shape)
-            save_image(real_image_A,
+            save_image(tensor2img(real_image_A),
                        f"./samples/{config['EXP_NAME']}/A/real_image_A_epoch_{epoch:04d}.jpg",
                        normalize=True)
-            save_image(real_image_B,
+            save_image(tensor2img(real_image_B),
                        f"./samples/{config['EXP_NAME']}/B/real_image_B_epoch_{epoch:04d}.jpg",
                        normalize=True)
 
@@ -584,13 +584,18 @@ def train(
             fake_image_A = 0.5 * (g_B_model(real_image_B).data + 1.0)
             fake_image_B = 0.5 * (g_A_model(real_image_A).data + 1.0)
 
-            save_image(fake_image_A.detach(),
+            save_image(tensor2img(fake_image_A.detach()),
                        f"./samples/{config['EXP_NAME']}/A/fake_image_A_epoch_{epoch:04d}.jpg",
                        normalize=True)
-            save_image(fake_image_B.detach(),
+            save_image(tensor2img(fake_image_B.detach()),
                        f"./samples/{config['EXP_NAME']}/B/fake_image_B_epoch_{epoch:04d}.jpg",
                        normalize=True)
 
+def tensor2img(tensor):
+    a=tensor[:,[0,1,2],:,:]
+    b=tensor[:,[3,4,5],:,:]
+    c=torch.cat([a,b],3)
+    return c
 
 if __name__ == "__main__":
     main()
